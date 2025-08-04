@@ -1,11 +1,12 @@
 ﻿using DuAn1_CuaHangTienLoiCircleK.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 namespace DuAn1_CuaHangTienLoiCircleK
 {
-    public partial class Form1 : Form
+    public partial class QuanLySanPham : Form
     {
         CuaHangTienLoiCircleKContext db = new CuaHangTienLoiCircleKContext();
-        public Form1()
+        public QuanLySanPham()
         {
             InitializeComponent();
         }
@@ -35,11 +36,15 @@ namespace DuAn1_CuaHangTienLoiCircleK
         {
             loadSP();
             loadCBBKM();
-            loadCTSP();
+            
         }
 
         private void dgvSP_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (dgvSP.DataSource == null)
+            {
+                loadSP();
+            }
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dgvSP.Rows[e.RowIndex];
@@ -65,7 +70,7 @@ namespace DuAn1_CuaHangTienLoiCircleK
                     comboBoxKMSP.SelectedIndex = 0;
                 }
 
-                
+
                 if (int.TryParse(row.Cells["IdSanPham"].Value?.ToString(), out int idSP))
                 {
                     loadCTSP(idSP);
@@ -84,8 +89,8 @@ namespace DuAn1_CuaHangTienLoiCircleK
                 .Where(sp =>
                     string.IsNullOrEmpty(keyword) ||
                     (sp.TenSanPham != null &&
-                        sp.TenSanPham.Length >= keyword.Length &&
-                        sp.TenSanPham.Substring(0, keyword.Length).ToLower() == keyword)
+                     sp.TenSanPham.Length >= keyword.Length &&
+                       sp.TenSanPham.Substring(0, keyword.Length).ToLower() == keyword)
                 )
                 .Select(sp => new
                 {
@@ -103,6 +108,7 @@ namespace DuAn1_CuaHangTienLoiCircleK
         {
             try
             {
+                // 1. Thêm sản phẩm mới
                 var sp = new SanPham
                 {
                     TenSanPham = textBoxTenSP.Text.Trim(),
@@ -111,8 +117,32 @@ namespace DuAn1_CuaHangTienLoiCircleK
                 };
                 db.SanPhams.Add(sp);
                 db.SaveChanges();
+
+                // 2. Lấy IdSanPham vừa thêm
+                int idSP = sp.IdSanPham;
+
+                // 3. Thêm chi tiết sản phẩm mới
+                DateOnly? hanSuDung = null;
+                if (DateOnly.TryParse(textBoxHSD.Text, out var hsd))
+                {
+                    hanSuDung = hsd;
+                }
+                var ctsp = new SanPhamChiTiet
+                {
+                    IdSanPham = idSP,
+                    HanSuDung = hanSuDung,
+                    SoLuong = int.TryParse(textBoxSL.Text, out var sl) ? sl : 0,
+                    DonViTinh = textBoxDVT.Text.Trim(),
+                    MoTa = textBoxMT.Text.Trim()
+                };
+                db.SanPhamChiTiets.Add(ctsp);
+                db.SaveChanges();
+
+                // 4. Refresh lại hai DataGridView
                 loadSP();
-                MessageBox.Show("Thêm sản phẩm thành công!");
+                loadCTSP(idSP);
+
+                MessageBox.Show("Thêm sản phẩm và chi tiết thành công!");
             }
             catch (Exception ex)
             {
@@ -124,18 +154,31 @@ namespace DuAn1_CuaHangTienLoiCircleK
         {
             try
             {
-                if (int.TryParse(textBoxIDSP.Text, out int id))
+                if (int.TryParse(textBoxIDSP.Text, out int idSP))
                 {
-                    var sp = db.SanPhams.FirstOrDefault(x => x.IdSanPham == id);
+                    // Sửa sản phẩm
+                    var sp = db.SanPhams.FirstOrDefault(x => x.IdSanPham == idSP);
                     if (sp != null)
                     {
                         sp.TenSanPham = textBoxTenSP.Text.Trim();
                         sp.GiaBan = decimal.TryParse(textBoxGiaSP.Text, out var gia) ? gia : 0;
                         sp.IdKhuyenMai = comboBoxKMSP.SelectedValue as int? ?? 0;
-                        db.SaveChanges();
-                        loadSP();
-                        MessageBox.Show("Sửa sản phẩm thành công!");
                     }
+
+                    // Sửa chi tiết sản phẩm (giả sử chỉ sửa chi tiết đầu tiên của sản phẩm)
+                    var ctsp = db.SanPhamChiTiets.FirstOrDefault(x => x.IdSanPham == idSP);
+                    if (ctsp != null)
+                    {
+                        ctsp.HanSuDung = DateOnly.TryParse(textBoxHSD.Text, out var hsd) ? hsd : null;
+                        ctsp.SoLuong = int.TryParse(textBoxSL.Text, out var sl) ? sl : 0;
+                        ctsp.DonViTinh = textBoxDVT.Text.Trim();
+                        ctsp.MoTa = textBoxMT.Text.Trim();
+                    }
+
+                    db.SaveChanges();
+                    loadSP();
+                    loadCTSP(idSP);
+                    MessageBox.Show("Sửa sản phẩm và chi tiết thành công!");
                 }
             }
             catch (Exception ex)
@@ -148,21 +191,31 @@ namespace DuAn1_CuaHangTienLoiCircleK
         {
             try
             {
-                if (int.TryParse(textBoxIDSP.Text, out int id))
+                if (int.TryParse(textBoxIDSP.Text, out int idSP))
                 {
-                    var sp = db.SanPhams.FirstOrDefault(x => x.IdSanPham == id);
+                    // Xóa chi tiết sản phẩm trước (nếu có)
+                    var ctspList = db.SanPhamChiTiets.Where(x => x.IdSanPham == idSP).ToList();
+                    if (ctspList.Any())
+                    {
+                        db.SanPhamChiTiets.RemoveRange(ctspList);
+                    }
+
+                    // Xóa sản phẩm
+                    var sp = db.SanPhams.FirstOrDefault(x => x.IdSanPham == idSP);
                     if (sp != null)
                     {
                         db.SanPhams.Remove(sp);
-                        db.SaveChanges();
-                        loadSP();
-                        MessageBox.Show("Xóa sản phẩm thành công!");
                     }
+
+                    db.SaveChanges();
+                    loadSP();
+                    dgvCTSP.DataSource = null;
+                    MessageBox.Show("Xóa sản phẩm và chi tiết thành công!");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+
             }
         }
 
@@ -180,7 +233,7 @@ namespace DuAn1_CuaHangTienLoiCircleK
             textBoxDVT.Clear();
             textBoxMT.Clear();
             loadSP();
-            loadCTSP();
+            dgvCTSP.DataSource = null;
         }
 
 
@@ -194,13 +247,13 @@ namespace DuAn1_CuaHangTienLoiCircleK
         private void loadCTSP(int? idSanPham = null)
         {
             var query = db.SanPhamChiTiets
-        .Include(ct => ct.IdSanPhamNavigation)
-        .AsQueryable();
+            .Include(ct => ct.IdSanPhamNavigation)
+            .AsQueryable();
 
             if (idSanPham.HasValue)
                 query = query.Where(ct => ct.IdSanPham == idSanPham.Value);
 
-            dgvCTSP.DataSource = query
+            var list = query
                 .ToList()
                 .Select(ct => new
                 {
@@ -212,6 +265,25 @@ namespace DuAn1_CuaHangTienLoiCircleK
                     ct.MoTa
                 })
                 .ToList();
+
+            dgvCTSP.DataSource = list;
+
+            
+            if (list.Count > 0)
+            {
+                dgvCTSP.ClearSelection();
+                dgvCTSP.Rows[0].Selected = true;
+                DataGridViewCellEventArgs args = new DataGridViewCellEventArgs(0, 0);
+                dgvCTSP_CellClick(dgvCTSP, args);
+            }
+            else
+            {
+                textBoxTenSPCT.Clear();
+                textBoxHSD.Clear();
+                textBoxSL.Clear();
+                textBoxDVT.Clear();
+                textBoxMT.Clear();
+            }
         }
 
         private void dgvCTSP_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -226,6 +298,7 @@ namespace DuAn1_CuaHangTienLoiCircleK
                 textBoxDVT.Text = row.Cells["DonViTinh"].Value?.ToString();
                 textBoxMT.Text = row.Cells["MoTa"].Value?.ToString();
             }
-        }
+
+        }  
     }
 }

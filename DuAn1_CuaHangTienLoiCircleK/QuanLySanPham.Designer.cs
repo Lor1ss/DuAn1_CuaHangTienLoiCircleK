@@ -1,6 +1,6 @@
 ﻿namespace DuAn1_CuaHangTienLoiCircleK
 {
-    partial class Form1
+    partial class QuanLySanPham
     {
         /// <summary>
         ///  Required designer variable.
@@ -75,6 +75,7 @@
             groupBox1.Controls.Add(textBoxIDSP);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(dgvSP);
+            groupBox1.Font = new Font("Calibri", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             groupBox1.Location = new Point(12, 1);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(875, 307);
@@ -87,7 +88,7 @@
             comboBoxKMSP.FormattingEnabled = true;
             comboBoxKMSP.Location = new Point(610, 259);
             comboBoxKMSP.Name = "comboBoxKMSP";
-            comboBoxKMSP.Size = new Size(245, 28);
+            comboBoxKMSP.Size = new Size(245, 29);
             comboBoxKMSP.TabIndex = 9;
             // 
             // label4
@@ -95,7 +96,7 @@
             label4.AutoSize = true;
             label4.Location = new Point(610, 236);
             label4.Name = "label4";
-            label4.Size = new Size(86, 20);
+            label4.Size = new Size(93, 21);
             label4.TabIndex = 8;
             label4.Text = "Khuyến Mãi";
             // 
@@ -104,7 +105,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(610, 166);
             label3.Name = "label3";
-            label3.Size = new Size(100, 20);
+            label3.Size = new Size(106, 21);
             label3.TabIndex = 7;
             label3.Text = "Giá Sản Phẩm";
             // 
@@ -113,7 +114,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(610, 98);
             label2.Name = "label2";
-            label2.Size = new Size(101, 20);
+            label2.Size = new Size(106, 21);
             label2.TabIndex = 6;
             label2.Text = "Tên Sản Phẩm";
             // 
@@ -121,14 +122,14 @@
             // 
             textBoxGiaSP.Location = new Point(610, 189);
             textBoxGiaSP.Name = "textBoxGiaSP";
-            textBoxGiaSP.Size = new Size(245, 27);
+            textBoxGiaSP.Size = new Size(245, 28);
             textBoxGiaSP.TabIndex = 4;
             // 
             // textBoxTenSP
             // 
             textBoxTenSP.Location = new Point(610, 121);
             textBoxTenSP.Name = "textBoxTenSP";
-            textBoxTenSP.Size = new Size(245, 27);
+            textBoxTenSP.Size = new Size(245, 28);
             textBoxTenSP.TabIndex = 3;
             // 
             // textBoxIDSP
@@ -136,7 +137,7 @@
             textBoxIDSP.Location = new Point(610, 49);
             textBoxIDSP.Name = "textBoxIDSP";
             textBoxIDSP.ReadOnly = true;
-            textBoxIDSP.Size = new Size(245, 27);
+            textBoxIDSP.Size = new Size(245, 28);
             textBoxIDSP.TabIndex = 2;
             // 
             // label1
@@ -144,12 +145,13 @@
             label1.AutoSize = true;
             label1.Location = new Point(610, 26);
             label1.Name = "label1";
-            label1.Size = new Size(93, 20);
+            label1.Size = new Size(97, 21);
             label1.TabIndex = 1;
             label1.Text = "ID Sản Phẩm";
             // 
             // dgvSP
             // 
+            dgvSP.BackgroundColor = SystemColors.ButtonFace;
             dgvSP.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvSP.Location = new Point(17, 26);
             dgvSP.Name = "dgvSP";
@@ -160,32 +162,35 @@
             // 
             // buttonThem
             // 
-            buttonThem.Location = new Point(56, 149);
+            buttonThem.BackColor = SystemColors.GradientActiveCaption;
+            buttonThem.Location = new Point(56, 189);
             buttonThem.Name = "buttonThem";
-            buttonThem.Size = new Size(123, 37);
+            buttonThem.Size = new Size(123, 77);
             buttonThem.TabIndex = 1;
             buttonThem.Text = "Thêm Sản Phẩm";
-            buttonThem.UseVisualStyleBackColor = true;
+            buttonThem.UseVisualStyleBackColor = false;
             buttonThem.Click += buttonThem_Click;
             // 
             // buttonSua
             // 
-            buttonSua.Location = new Point(56, 204);
+            buttonSua.BackColor = SystemColors.GradientActiveCaption;
+            buttonSua.Location = new Point(56, 292);
             buttonSua.Name = "buttonSua";
-            buttonSua.Size = new Size(123, 37);
+            buttonSua.Size = new Size(123, 77);
             buttonSua.TabIndex = 2;
             buttonSua.Text = "Sửa Sản Phẩm";
-            buttonSua.UseVisualStyleBackColor = true;
+            buttonSua.UseVisualStyleBackColor = false;
             buttonSua.Click += buttonSua_Click;
             // 
             // buttonXoa
             // 
-            buttonXoa.Location = new Point(56, 259);
+            buttonXoa.BackColor = SystemColors.GradientActiveCaption;
+            buttonXoa.Location = new Point(56, 394);
             buttonXoa.Name = "buttonXoa";
-            buttonXoa.Size = new Size(123, 37);
+            buttonXoa.Size = new Size(123, 77);
             buttonXoa.TabIndex = 3;
             buttonXoa.Text = "Xóa Sản Phẩm";
-            buttonXoa.UseVisualStyleBackColor = true;
+            buttonXoa.UseVisualStyleBackColor = false;
             buttonXoa.Click += buttonXoa_Click;
             // 
             // label5
@@ -193,26 +198,28 @@
             label5.AutoSize = true;
             label5.Location = new Point(16, 26);
             label5.Name = "label5";
-            label5.Size = new Size(72, 20);
+            label5.Size = new Size(75, 21);
             label5.TabIndex = 10;
             label5.Text = "Tìm Kiếm";
             // 
             // textBoxTK
             // 
+            textBoxTK.BackColor = SystemColors.ButtonHighlight;
             textBoxTK.Location = new Point(16, 49);
             textBoxTK.Name = "textBoxTK";
-            textBoxTK.Size = new Size(195, 27);
+            textBoxTK.Size = new Size(195, 28);
             textBoxTK.TabIndex = 10;
             textBoxTK.TextChanged += textBoxTK_TextChanged;
             // 
             // buttonLM
             // 
-            buttonLM.Location = new Point(56, 90);
+            buttonLM.BackColor = SystemColors.GradientActiveCaption;
+            buttonLM.Location = new Point(56, 96);
             buttonLM.Name = "buttonLM";
-            buttonLM.Size = new Size(123, 37);
+            buttonLM.Size = new Size(123, 76);
             buttonLM.TabIndex = 11;
             buttonLM.Text = "Làm Mới";
-            buttonLM.UseVisualStyleBackColor = true;
+            buttonLM.UseVisualStyleBackColor = false;
             buttonLM.Click += buttonLM_Click;
             // 
             // groupBox2
@@ -228,101 +235,103 @@
             groupBox2.Controls.Add(label7);
             groupBox2.Controls.Add(label6);
             groupBox2.Controls.Add(dgvCTSP);
+            groupBox2.Font = new Font("Calibri", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             groupBox2.Location = new Point(12, 314);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1123, 377);
+            groupBox2.Size = new Size(875, 195);
             groupBox2.TabIndex = 12;
             groupBox2.TabStop = false;
             groupBox2.Text = "Chi Tiết Sản Phẩm";
             // 
             // textBoxTenSPCT
             // 
-            textBoxTenSPCT.Location = new Point(838, 49);
+            textBoxTenSPCT.Location = new Point(17, 58);
             textBoxTenSPCT.Name = "textBoxTenSPCT";
             textBoxTenSPCT.ReadOnly = true;
-            textBoxTenSPCT.Size = new Size(263, 27);
+            textBoxTenSPCT.Size = new Size(151, 28);
             textBoxTenSPCT.TabIndex = 20;
             // 
             // textBoxDVT
             // 
-            textBoxDVT.Location = new Point(838, 260);
+            textBoxDVT.Location = new Point(528, 58);
             textBoxDVT.Name = "textBoxDVT";
-            textBoxDVT.Size = new Size(263, 27);
+            textBoxDVT.Size = new Size(155, 28);
             textBoxDVT.TabIndex = 19;
             // 
             // textBoxMT
             // 
-            textBoxMT.Location = new Point(838, 332);
+            textBoxMT.Location = new Point(700, 58);
             textBoxMT.Name = "textBoxMT";
-            textBoxMT.Size = new Size(263, 27);
+            textBoxMT.Size = new Size(155, 28);
             textBoxMT.TabIndex = 18;
             // 
             // textBoxSL
             // 
-            textBoxSL.Location = new Point(838, 191);
+            textBoxSL.Location = new Point(356, 58);
             textBoxSL.Name = "textBoxSL";
-            textBoxSL.Size = new Size(263, 27);
+            textBoxSL.Size = new Size(155, 28);
             textBoxSL.TabIndex = 17;
             // 
             // textBoxHSD
             // 
-            textBoxHSD.Location = new Point(838, 120);
+            textBoxHSD.Location = new Point(185, 58);
             textBoxHSD.Name = "textBoxHSD";
-            textBoxHSD.Size = new Size(263, 27);
+            textBoxHSD.Size = new Size(155, 28);
             textBoxHSD.TabIndex = 16;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(838, 309);
+            label10.Location = new Point(700, 35);
             label10.Name = "label10";
-            label10.Size = new Size(51, 20);
+            label10.Size = new Size(53, 21);
             label10.TabIndex = 14;
             label10.Text = "Mô Tả";
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(838, 237);
+            label9.Location = new Point(528, 35);
             label9.Name = "label9";
-            label9.Size = new Size(86, 20);
+            label9.Size = new Size(92, 21);
             label9.TabIndex = 13;
             label9.Text = "Đơn Vị Tính";
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(838, 168);
+            label8.Location = new Point(356, 35);
             label8.Name = "label8";
-            label8.Size = new Size(72, 20);
+            label8.Size = new Size(75, 21);
             label8.TabIndex = 12;
             label8.Text = "Số Lượng";
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(838, 97);
+            label7.Location = new Point(185, 35);
             label7.Name = "label7";
-            label7.Size = new Size(97, 20);
+            label7.Size = new Size(100, 21);
             label7.TabIndex = 11;
             label7.Text = "Hạn Sử Dụng";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(838, 26);
+            label6.Location = new Point(17, 35);
             label6.Name = "label6";
-            label6.Size = new Size(101, 20);
+            label6.Size = new Size(106, 21);
             label6.TabIndex = 10;
             label6.Text = "Tên Sản Phẩm";
             // 
             // dgvCTSP
             // 
+            dgvCTSP.BackgroundColor = SystemColors.ButtonFace;
             dgvCTSP.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCTSP.Location = new Point(17, 26);
+            dgvCTSP.Location = new Point(17, 110);
             dgvCTSP.Name = "dgvCTSP";
             dgvCTSP.RowHeadersWidth = 51;
-            dgvCTSP.Size = new Size(801, 333);
+            dgvCTSP.Size = new Size(838, 66);
             dgvCTSP.TabIndex = 0;
             dgvCTSP.CellClick += dgvCTSP_CellClick;
             // 
@@ -334,22 +343,25 @@
             groupBox3.Controls.Add(buttonXoa);
             groupBox3.Controls.Add(textBoxTK);
             groupBox3.Controls.Add(label5);
+            groupBox3.Font = new Font("Calibri", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             groupBox3.Location = new Point(902, 1);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(233, 307);
+            groupBox3.Size = new Size(233, 498);
             groupBox3.TabIndex = 13;
             groupBox3.TabStop = false;
             groupBox3.Text = "Công Cụ";
             // 
-            // Form1
+            // QuanLySanPham
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1147, 703);
+            BackColor = SystemColors.GradientInactiveCaption;
+            ClientSize = new Size(1147, 521);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
-            Name = "Form1";
+            Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Name = "QuanLySanPham";
             Text = "Quản Lý Sản Phẩm";
             Load += Form1_Load;
             groupBox1.ResumeLayout(false);
