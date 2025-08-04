@@ -108,7 +108,6 @@ namespace DuAn1_CuaHangTienLoiCircleK
         {
             try
             {
-                // 1. Thêm sản phẩm mới
                 var sp = new SanPham
                 {
                     TenSanPham = textBoxTenSP.Text.Trim(),
@@ -118,10 +117,8 @@ namespace DuAn1_CuaHangTienLoiCircleK
                 db.SanPhams.Add(sp);
                 db.SaveChanges();
 
-                // 2. Lấy IdSanPham vừa thêm
                 int idSP = sp.IdSanPham;
 
-                // 3. Thêm chi tiết sản phẩm mới
                 DateOnly? hanSuDung = null;
                 if (DateOnly.TryParse(textBoxHSD.Text, out var hsd))
                 {
@@ -137,8 +134,6 @@ namespace DuAn1_CuaHangTienLoiCircleK
                 };
                 db.SanPhamChiTiets.Add(ctsp);
                 db.SaveChanges();
-
-                // 4. Refresh lại hai DataGridView
                 loadSP();
                 loadCTSP(idSP);
 
@@ -156,7 +151,6 @@ namespace DuAn1_CuaHangTienLoiCircleK
             {
                 if (int.TryParse(textBoxIDSP.Text, out int idSP))
                 {
-                    // Sửa sản phẩm
                     var sp = db.SanPhams.FirstOrDefault(x => x.IdSanPham == idSP);
                     if (sp != null)
                     {
@@ -165,7 +159,6 @@ namespace DuAn1_CuaHangTienLoiCircleK
                         sp.IdKhuyenMai = comboBoxKMSP.SelectedValue as int? ?? 0;
                     }
 
-                    // Sửa chi tiết sản phẩm (giả sử chỉ sửa chi tiết đầu tiên của sản phẩm)
                     var ctsp = db.SanPhamChiTiets.FirstOrDefault(x => x.IdSanPham == idSP);
                     if (ctsp != null)
                     {
@@ -193,14 +186,12 @@ namespace DuAn1_CuaHangTienLoiCircleK
             {
                 if (int.TryParse(textBoxIDSP.Text, out int idSP))
                 {
-                    // Xóa chi tiết sản phẩm trước (nếu có)
                     var ctspList = db.SanPhamChiTiets.Where(x => x.IdSanPham == idSP).ToList();
                     if (ctspList.Any())
                     {
                         db.SanPhamChiTiets.RemoveRange(ctspList);
                     }
 
-                    // Xóa sản phẩm
                     var sp = db.SanPhams.FirstOrDefault(x => x.IdSanPham == idSP);
                     if (sp != null)
                     {
