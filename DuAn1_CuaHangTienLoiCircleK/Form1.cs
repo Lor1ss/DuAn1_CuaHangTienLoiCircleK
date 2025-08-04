@@ -227,7 +227,5 @@ namespace DuAn1_CuaHangTienLoiCircleK
                 textBoxMT.Text = row.Cells["MoTa"].Value?.ToString();
             }
         }
-
-        
     }
 }
